@@ -52,5 +52,6 @@ class DeleteTagService < BaseService
       execute_without_protected_tags(tag_name)
     end
   end
+
   alias_method_chain :execute, :protected_tags
 end

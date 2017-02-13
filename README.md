@@ -18,10 +18,15 @@ We use Ruby's open classes and Rails' initializers to monkey-patch the ugly tag 
 
 It consists of 2 parts - a monkey-patch for the UI, and a custom hook for `git push origin :tag_name`.
 
-Put the initializer and it's config in `/opt/gitlab/embedded/service/gitlab-rails/config/initializers` (assuming you use the Omnibus package), or in `<gitlab-root>/config/initializers` and restart Unicorn.
+To install it for the Omnibus package, you can use the `install.sh` script, or do it manually as described below.
 
-Then put the `update` custom hook in `/var/opt/gitlab/git-data/repositories/<namespace>/<repository-name>.git/custom_hooks` and make it executable.
-Edit the `update` custom hook and add SSH key IDs to allow specific people to delete tags.
+## Installation
+
+Put the initializer and it's config in `/opt/gitlab/embedded/service/gitlab-rails/config/initializers`.
+
+To disable tag deletion globally, put the `zzz_protected_tags.sh` hook in `/opt/gitlab/embedded/service/gitlab-shell/hooks/update.d`.
+To disable it per project, put it in `/var/opt/gitlab/git-data/repositories/<namespace>/<repository-name>.git/custom_hooks`.
+Then edit the hook and add SSH key IDs to allow specific people to delete tags.
 
 ## NB
 
