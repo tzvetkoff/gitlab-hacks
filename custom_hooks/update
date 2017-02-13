@@ -4,7 +4,9 @@
 ## Who can delete tags?
 ## Format: key-<SSH-Key IDs from GitLab's database>
 ## The easiest way to find those IDs is from GitLab's console:
-##   User.find_by(email: 'admin@example.com').key_ids
+##   $ gitlab-rails console
+##   >> User.find_by(email: 'admin@example.com').key_ids
+##   >> User.find_by(:username => 'root').key_ids
 ##
 
 ALLOWED_KEY_IDS=('key-1' 'key-XXX' 'key-XXY')
@@ -32,11 +34,11 @@ in_array() {
 }
 
 msg() {
-  echo "${*}"
+  echo "${*}" >&2
 }
 
 log() {
-  [[ -n "${LOG_FILE}" ]] && echo "${*}" > "${LOG_FILE}"
+  [[ -n "${LOG_FILE}" ]] && echo "${*}" >> "${LOG_FILE}"
 }
 
 case "${1}" in
